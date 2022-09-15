@@ -1,24 +1,15 @@
 # kota-shiokara.github.io
 
-## Project setup
+## Running the Project
 ```
-npm install
+./gradlew jsBrowserRun
 ```
-
-### Compiles and hot-reloads for development
+or
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+./gradlew jsBrowserRun --continuous
 ```
 
-### Lints and fixes files
+## Build the project
 ```
-npm run lint
+./gradlew jsBrowserWebpack
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
