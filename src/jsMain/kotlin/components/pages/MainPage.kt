@@ -21,10 +21,7 @@ fun MainPage() {
         Img(
             src = "./img/favicon.ico",
             attrs = {
-                style {
-                    display(DisplayStyle.Block)
-                    margin(MarginStyle.AUTO)
-                }
+                classes(AppStyleSheet.centerStyle)
             }
         )
         Div { Text("Welcome to kota-shiokara's portfolio") }

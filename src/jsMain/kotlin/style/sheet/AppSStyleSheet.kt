@@ -12,6 +12,7 @@ object AppStyleSheet : StyleSheet() {
     }
 
     val centerStyle by style {
-        margin("auto")
+        display(DisplayStyle.Block)
+        margin(MarginStyle.AUTO)
     }
 }
