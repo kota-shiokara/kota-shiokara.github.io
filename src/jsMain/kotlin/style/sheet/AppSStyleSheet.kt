@@ -1,13 +1,17 @@
 package style.sheet
 
-import org.jetbrains.compose.web.css.StyleSheet
-import org.jetbrains.compose.web.css.margin
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 object AppStyleSheet : StyleSheet() {
-    val universalStyle by style {
-        this.universal.style {
-            margin(0.px)
-        }
+    val pageStyle by style {
+        display(DisplayStyle.Flex)
+        flexDirection(FlexDirection.Column)
+        property("box-sizing", "border-box")
+        height(100.vh)
+        width(100.vw)
+    }
+
+    val centerStyle by style {
+        margin("auto")
     }
 }
