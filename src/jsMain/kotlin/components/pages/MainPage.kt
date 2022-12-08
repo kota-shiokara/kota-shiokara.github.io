@@ -1,12 +1,15 @@
 package components.pages
 
 import androidx.compose.runtime.Composable
+import components.parts.LinkIconRow
+import components.parts.VerticalSpacer
 import org.jetbrains.compose.web.attributes.DirType
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.display
-import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.attributes.alt
+import org.jetbrains.compose.web.attributes.src
+import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Img
-import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.HTMLImageElement
 import style.sheet.AppStyleSheet
 import style.sheet.MarginStyle
 import style.sheet.margin
@@ -19,11 +22,25 @@ fun MainPage() {
         }
     ) {
         Img(
-            src = "./img/favicon.ico",
+            src = "https://avatars.githubusercontent.com/u/50353938?s=96&v=4",
             attrs = {
                 classes(AppStyleSheet.centerStyle)
+                style {
+                    borderRadius(50.percent)
+                }
+                attr("onerror", "this.src='./img/favicon.ico'")
             }
         )
-        Div { Text("Welcome to kota-shiokara's portfolio") }
+        VerticalSpacer()
+        Div(
+            attrs = {
+                style {
+                    color(Color.white)
+                    display(DisplayStyle.Block)
+                }
+            }
+        ) { Text("Welcome to kota-shiokara's portfolio") }
+        VerticalSpacer(20)
+        LinkIconRow()
     }
 }
