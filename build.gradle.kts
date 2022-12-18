@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "jp.ikanoshiokara"
-version = "0.0.1"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
