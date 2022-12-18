@@ -1,7 +1,13 @@
 package components.parts
 
 import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.JustifyContent
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.height
+import org.jetbrains.compose.web.css.justifyContent
+import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Img
@@ -10,6 +16,14 @@ val defaultLinkIconList = listOf(
     LinkIconData(
         href = "https://github.com/kota-shiokara",
         src = "https://github.githubassets.com/favicons/favicon-dark.svg"
+    ),
+    LinkIconData(
+        href = "https://twitter.com/shiokara_create",
+        src = "./img/twitter.svg"
+    ),
+    LinkIconData(
+        href = "https://www.instagram.com/kota_bellflower",
+        src = "./img/instagram.svg"
     ),
     LinkIconData(
         href = "https://qiita.com/kotambourine",
@@ -29,6 +43,7 @@ fun LinkIconRow(dataList: List<LinkIconData> = defaultLinkIconList) {
         attrs = {
             style {
                 display(DisplayStyle.Flex)
+                justifyContent(JustifyContent.SpaceEvenly)
             }
         }
     ) {

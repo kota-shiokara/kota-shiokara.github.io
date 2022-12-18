@@ -3,9 +3,19 @@ package components.pages
 import androidx.compose.runtime.Composable
 import components.parts.LinkIconRow
 import components.parts.VerticalSpacer
-import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.css.Color
+import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.borderRadius
+import org.jetbrains.compose.web.css.color
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.percent
+import org.jetbrains.compose.web.css.textAlign
+import org.jetbrains.compose.web.dom.B
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.Img
+import org.jetbrains.compose.web.dom.Text
+import style.common.CSSProperty
 import style.sheet.AppStyleSheet
 
 @Composable
@@ -26,14 +36,19 @@ fun MainPage() {
             }
         )
         VerticalSpacer()
-        Div(
+        H3(
             attrs = {
                 style {
                     color(Color.white)
                     display(DisplayStyle.Block)
+                    textAlign(CSSProperty.CENTER)
                 }
             }
-        ) { Text("Welcome to kota-shiokara's portfolio") }
+        ) {
+            B {
+                Text("Welcome to kota-shiokara's portfolio")
+            }
+        }
         VerticalSpacer(20)
         LinkIconRow()
     }
