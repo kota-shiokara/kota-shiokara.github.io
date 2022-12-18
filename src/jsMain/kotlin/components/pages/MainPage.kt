@@ -3,16 +3,10 @@ package components.pages
 import androidx.compose.runtime.Composable
 import components.parts.LinkIconRow
 import components.parts.VerticalSpacer
-import org.jetbrains.compose.web.attributes.DirType
-import org.jetbrains.compose.web.attributes.alt
-import org.jetbrains.compose.web.attributes.src
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Img
-import org.w3c.dom.HTMLImageElement
 import style.sheet.AppStyleSheet
-import style.sheet.MarginStyle
-import style.sheet.margin
 
 @Composable
 fun MainPage() {

@@ -1,37 +1,28 @@
 package components.parts
 
 import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.borderRadius
-import org.jetbrains.compose.web.css.display
-import org.jetbrains.compose.web.css.percent
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Img
 
-@Composable
-fun LinkIconRow() {
-    Div(
-        attrs = {
-            style {
-                display(DisplayStyle.Flex)
-            }
-        }
-    ) {
-        LinkIcon(
-            href = "https://github.com/kota-shiokara",
-            src = "https://github.githubassets.com/favicons/favicon-dark.svg"
-        )
-        HorizontalSpacer()
-        LinkIcon(
-            href = "https://github.com/kota-shiokara",
-            src = "https://github.githubassets.com/favicons/favicon-dark.svg"
-        )
-    }
-}
+val defaultLinkIconList = listOf(
+    LinkIconData(
+        href = "https://github.com/kota-shiokara",
+        src = "https://github.githubassets.com/favicons/favicon-dark.svg"
+    ),
+    LinkIconData(
+        href = "https://qiita.com/kotambourine",
+        src = "./img/qiita.png"
+    ),
+    LinkIconData(
+        href = "https://zenn.dev/kota_shiokara",
+        src = "./img/zenn.svg"
+    )
+)
 
 @Composable
-fun LinkIconRow(dataList: List<LinkIconData>) {
+fun LinkIconRow(dataList: List<LinkIconData> = defaultLinkIconList) {
     if (dataList.isEmpty()) return
 
     Div(
@@ -65,7 +56,10 @@ fun LinkIcon(href: String, src: String) {
             src = src,
             attrs = {
                 style {
-                    borderRadius(50.percent)
+                    /* 丸めるとロゴのガイドライン違反になる気がする...！！ */
+                    /* borderRadius(50.percent) */
+                    width(32.px)
+                    height(32.px)
                 }
             }
         )
@@ -74,18 +68,7 @@ fun LinkIcon(href: String, src: String) {
 
 @Composable
 fun LinkIcon(data: LinkIconData) {
-    A(
-        href = data.href
-    ) {
-        Img(
-            src = data.src,
-            attrs = {
-                style {
-                    borderRadius(50.percent)
-                }
-            }
-        )
-    }
+    LinkIcon(data.href, data.src)
 }
 
 data class LinkIconData(

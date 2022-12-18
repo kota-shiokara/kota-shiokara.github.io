@@ -10,7 +10,6 @@ fun PageLayout(content: @Composable () -> Unit) {
     Div(attrs = {
         classes(AppStyleSheet.pageStyle)
         style {
-            backgroundColor(Color.darkgray)
         }
     }) {
         content()
