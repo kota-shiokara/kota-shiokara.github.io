@@ -5,9 +5,9 @@ import org.jetbrains.compose.web.dom.Div
 import style.sheet.AppStyleSheet
 
 @Composable
-fun UniversalLayout(content: @Composable () -> Unit) {
+fun PageLayout(content: @Composable () -> Unit) {
     Div(attrs = {
-        AppStyleSheet.universalStyle
+        classes(AppStyleSheet.pageStyle)
     }) {
         content()
     }

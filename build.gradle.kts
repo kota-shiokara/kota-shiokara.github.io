@@ -9,6 +9,7 @@ version = "0.0.1"
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
     google()
 }
 
@@ -33,6 +34,15 @@ kotlin {
             dependencies {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
+
+                // kotlin react
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.201-kotlin-1.5.0")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.201-kotlin-1.5.0")
+                implementation(npm("react", "17.0.2"))
+                implementation(npm("react-dom", "17.0.2"))
+
+                implementation(npm("react-icons", "4.7.1"))
+                implementation(npm("@fortawesome/react-fontawesome", "latest"))
             }
         }
     }
