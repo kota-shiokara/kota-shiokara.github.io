@@ -2,7 +2,6 @@ package style.sheet
 
 import org.jetbrains.compose.web.css.StylePropertyEnum
 import org.jetbrains.compose.web.css.StyleScope
-import org.jetbrains.compose.web.css.name
 import org.jetbrains.compose.web.css.value
 
 /*

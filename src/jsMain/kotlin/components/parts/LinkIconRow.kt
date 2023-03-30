@@ -12,7 +12,7 @@ import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Img
 
-val defaultLinkIconList = listOf(
+private val defaultLinkIconList = listOf(
     LinkIconData(
         href = "https://github.com/kota-shiokara",
         src = "https://github.githubassets.com/favicons/favicon-dark.svg"
