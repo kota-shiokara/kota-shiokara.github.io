@@ -1,6 +1,11 @@
 group = "jp.ikanoshiokara"
 version = "1.0.0"
 
+val copyJsResources = tasks.create("copyJsResourcesWorkaround", Copy::class.java) {
+    from(rootProject.file("src/jsMain/resources"))
+    into("build/processedResources/js/main")
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -36,7 +41,12 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.ui)
+
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
+
+//            resources.srcDir("./src/jsMain/resources")
         }
     }
 }
@@ -50,4 +60,5 @@ afterEvaluate {
         versions.webpackDevServer.version = "4.0.0"
         versions.webpackCli.version = "4.10.0"
     }
+    project.tasks.getByName("jsProcessResources").finalizedBy(copyJsResources)
 }

@@ -1,92 +1,68 @@
 package components.parts
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.JustifyContent
-import org.jetbrains.compose.web.css.display
-import org.jetbrains.compose.web.css.height
-import org.jetbrains.compose.web.css.justifyContent
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.width
-import org.jetbrains.compose.web.dom.A
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Img
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import kotlinx.browser.window
+import utils.painterResource
 
 private val defaultLinkIconList = listOf(
     LinkIconData(
-        href = "https://github.com/kota-shiokara",
-        src = "https://github.githubassets.com/favicons/favicon-dark.svg"
+        link = "https://github.com/kota-shiokara",
+        path = "https://github.githubassets.com/favicons/favicon-dark.svg"
     ),
     LinkIconData(
-        href = "https://twitter.com/shiokara_create",
-        src = "./img/twitter.svg"
+        link = "https://twitter.com/shiokara_create",
+        path = "./img/twitter.svg"
     ),
     LinkIconData(
-        href = "https://www.instagram.com/kota_bellflower",
-        src = "./img/instagram.svg"
+        link = "https://www.instagram.com/kota_bellflower",
+        path = "./img/instagram.svg"
     ),
     LinkIconData(
-        href = "https://qiita.com/kotambourine",
-        src = "./img/qiita.png"
+        link = "https://qiita.com/kotambourine",
+        path = "./img/qiita.png"
     ),
     LinkIconData(
-        href = "https://zenn.dev/kota_shiokara",
-        src = "./img/zenn.svg"
+        link = "https://zenn.dev/kota_shiokara",
+        path = "./img/zenn.svg"
     )
 )
 
 @Composable
 fun LinkIconRow(dataList: List<LinkIconData> = defaultLinkIconList) {
-    if (dataList.isEmpty()) return
+    Row {
+        val first = dataList.first()
+        LinkIcon(first)
 
-    Div(
-        attrs = {
-            style {
-                display(DisplayStyle.Flex)
-                justifyContent(JustifyContent.SpaceEvenly)
-            }
-        }
-    ) {
-        LinkIcon(
-            href = dataList[0].href,
-            src = dataList[0].src
-        )
-        if (dataList.size >= 2) {
-            (1 until dataList.size)
-                .map { dataList[it] }
-                .forEach { data ->
-                    HorizontalSpacer()
-                    LinkIcon(data)
-                }
+        (1 until dataList.size).map { index ->
+            Divider(modifier = Modifier.width(8.dp))
+            val data = dataList[index]
+            LinkIcon(data)
         }
     }
 }
-
 @Composable
-fun LinkIcon(href: String, src: String) {
-    A(
-        href = href
-    ) {
-        Img(
-            src = src,
-            attrs = {
-                style {
-                    /* 丸めるとロゴのガイドライン違反になる気がする...！！ */
-                    /* borderRadius(50.percent) */
-                    width(32.px)
-                    height(32.px)
-                }
-            }
-        )
-    }
-}
-
-@Composable
-fun LinkIcon(data: LinkIconData) {
-    LinkIcon(data.href, data.src)
+fun LinkIcon(linkIconData: LinkIconData) {
+    Image(
+        painter = painterResource(linkIconData.path),
+        contentDescription = null,
+        modifier = Modifier.size(48.dp).clickable {
+            window.open(
+                linkIconData.link
+            )
+        }
+    )
 }
 
 data class LinkIconData(
-    val href: String,
-    val src: String
+    val link: String,
+    val path: String
 )
