@@ -1,17 +1,17 @@
 package components.parts
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.browser.window
-import utils.painterResource
 
 private val defaultLinkIconList = listOf(
     LinkIconData(
@@ -39,26 +39,31 @@ private val defaultLinkIconList = listOf(
 @Composable
 fun LinkIconRow(dataList: List<LinkIconData> = defaultLinkIconList) {
     Row {
-        val first = dataList.first()
-        LinkIcon(first)
-
-        (1 until dataList.size).map { index ->
+        dataList.map { data ->
+            LinkIcon(
+                data
+            ) {
+                window.open(
+                    data.link
+                )
+            }
             Divider(modifier = Modifier.width(8.dp))
-            val data = dataList[index]
-            LinkIcon(data)
         }
     }
 }
 @Composable
-fun LinkIcon(linkIconData: LinkIconData) {
-    Image(
-        painter = painterResource(linkIconData.path),
-        contentDescription = null,
-        modifier = Modifier.size(48.dp).clickable {
-            window.open(
-                linkIconData.link
-            )
-        }
+fun LinkIcon(
+    linkIconData: LinkIconData,
+    enabled: Boolean = false,
+    onClick: () -> Unit = {}
+) {
+    Box(
+        modifier = Modifier
+            .size(48.dp)
+            .background(Color.Black)
+            .clickable {
+                if (enabled) onClick()
+            }
     )
 }
 
