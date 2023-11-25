@@ -1,4 +1,4 @@
-package components.parts
+package component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,19 +20,19 @@ private val defaultLinkIconList = listOf(
     ),
     LinkIconData(
         link = "https://twitter.com/shiokara_create",
-        path = "./img/twitter.svg"
+        path = "img/twitter.svg"
     ),
     LinkIconData(
         link = "https://www.instagram.com/kota_bellflower",
-        path = "./img/instagram.svg"
+        path = "img/instagram.svg"
     ),
     LinkIconData(
         link = "https://qiita.com/kotambourine",
-        path = "./img/qiita.png"
+        path = "img/qiita.png"
     ),
     LinkIconData(
         link = "https://zenn.dev/kota_shiokara",
-        path = "./img/zenn.svg"
+        path = "img/zenn.svg"
     )
 )
 

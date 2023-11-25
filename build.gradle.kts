@@ -1,42 +1,42 @@
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 group = "jp.ikanoshiokara"
 version = "1.0.0"
-
-val copyJsResources = tasks.create("copyJsResourcesWorkaround", Copy::class.java) {
-    from(rootProject.file("src/jsMain/resources"))
-    into("build/processedResources/js/main")
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
-    google()
-}
 
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
 
+val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+    from(rootProject.file("src/wasmJsMain/resources"))
+    into("build/processedResources/wasmJs/main")
+}
+
+afterEvaluate {
+    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
+}
+
 kotlin {
-    js(IR) {
-        browser()
+    wasmJs {
+        moduleName = "kota-shiokara.github.io"
+
         browser {
-            webpackTask {
+            commonWebpackConfig {
                 outputFileName = "main.js"
-            }
-            runTask {
-                outputFileName = "main.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        add(project.rootDir.path)
+                    }
+                }
             }
         }
         binaries.executable()
     }
 
     sourceSets {
-        val jsMain by getting {
+        val wasmJsMain by getting {
             dependencies {
-                implementation(compose.web.core)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -55,10 +55,10 @@ compose.experimental {
     web.application {}
 }
 
-afterEvaluate {
-    rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
-        versions.webpackDevServer.version = "4.0.0"
-        versions.webpackCli.version = "4.10.0"
-    }
-    project.tasks.getByName("jsProcessResources").finalizedBy(copyJsResources)
+compose {
+    val kotlinVersion = rootProject.extra["kotlin.version"] as String
+    val composeCompilerVersion = rootProject.extra["compose.compiler.version"] as String
+
+    kotlinCompilerPlugin.set(composeCompilerVersion)
+    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=$kotlinVersion")
 }
