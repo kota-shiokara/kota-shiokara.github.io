@@ -3,18 +3,18 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 group = "jp.ikanoshiokara"
 version = "1.0.0"
 
+repositories {
+    google()
+    mavenCentral()
+    mavenLocal()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+}
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
-}
-
-val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
-    from(rootProject.file("src/wasmJsMain/resources"))
-    into("build/processedResources/wasmJs/main")
-}
-
-afterEvaluate {
-    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
@@ -46,8 +46,6 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
             }
-
-//            resources.srcDir("./src/jsMain/resources")
         }
     }
 }
@@ -62,4 +60,13 @@ compose {
 
     kotlinCompilerPlugin.set(composeCompilerVersion)
     kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=$kotlinVersion")
+}
+
+val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+    from(rootProject.file("src/wasmJsMain/resources"))
+    into("build/processedResources/wasmJs/main")
+}
+
+afterEvaluate {
+    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
 }

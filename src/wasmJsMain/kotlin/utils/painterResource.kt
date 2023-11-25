@@ -69,13 +69,12 @@ private fun produceByteArray(res: String): State<ByteArray?> {
         val response: Response = window.fetch(res).await()
 
         if (response.ok.not()) {
-            console.error("can't load data from $res")
+            Log.d(res = "can't load data from $res")
             return@produceState
         }
 
         val buffer: ArrayBuffer = response.arrayBuffer().await()
 
-        value = Int8Array(buffer)
-            .unsafeCast<ByteArray>()
+        value = Int8Array(buffer) as ByteArray?
     }
 }
