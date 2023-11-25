@@ -17,6 +17,7 @@ afterEvaluate {
     project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
 }
 
+@OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
 kotlin {
     wasmJs {
         moduleName = "kota-shiokara.github.io"
