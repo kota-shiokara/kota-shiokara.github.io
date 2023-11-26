@@ -2,14 +2,14 @@
 
 ## Running the Project
 ```
-./gradlew jsBrowserRun
+./gradlew wasmJsBrowserRun
 ```
 or
 ```
-./gradlew jsBrowserRun --continuous
+./gradlew wasmJsBrowserRun --continuous
 ```
 
 ## Build the project
 ```
-./gradlew jsBrowserWebpack
+./gradlew wasmJsBrowserWebpack
 ```

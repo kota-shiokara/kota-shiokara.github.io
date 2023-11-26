@@ -1,56 +1,74 @@
-plugins {
-    kotlin("multiplatform") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.0"
-}
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 group = "jp.ikanoshiokara"
-version = "1.0.0"
+version = "2.0.0"
 
 repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
     google()
+    mavenCentral()
+    mavenLocal()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
 }
 
+plugins {
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+}
+
+// なんでこれ使ってエラーなるのかわからない
+//val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+//    from(rootProject.file("src/wasmJsMain/resources"))
+//    into("build/processedResources/wasmJs/main")
+//}
+//
+//afterEvaluate {
+//    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
+//}
+
+@OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
 kotlin {
-    js(IR) {
-        browser()
+    wasmJs {
+        moduleName = "kota-shiokara.github.io"
+
         browser {
-            webpackTask {
+            commonWebpackConfig {
                 outputFileName = "main.js"
-                cssSupport.enabled = true
-            }
-            runTask {
-                outputFileName = "main.js"
-                cssSupport.enabled = true
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        add(project.rootDir.path)
+                    }
+                }
             }
         }
         binaries.executable()
     }
 
     sourceSets {
-        val jsMain by getting {
+        val wasmJsMain by getting {
             dependencies {
-                implementation(compose.web.core)
                 implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
 
-                // kotlin react
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.201-kotlin-1.5.0")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.201-kotlin-1.5.0")
-                implementation(npm("react", "17.0.2"))
-                implementation(npm("react-dom", "17.0.2"))
-
-                implementation(npm("react-icons", "4.7.1"))
-                implementation(npm("@fortawesome/react-fontawesome", "latest"))
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
     }
 }
 
-afterEvaluate {
-    rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
-        versions.webpackDevServer.version = "4.0.0"
-        versions.webpackCli.version = "4.10.0"
-    }
+compose.experimental {
+    web.application {}
 }
+
+compose {
+    val kotlinVersion = rootProject.extra["kotlin.version"] as String
+    val composeCompilerVersion = rootProject.extra["compose.compiler.version"] as String
+
+    kotlinCompilerPlugin.set(composeCompilerVersion)
+    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=$kotlinVersion")
+}
+
