@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 group = "jp.ikanoshiokara"
-version = "1.0.0"
+version = "2.0.0"
 
 repositories {
     google()
@@ -17,7 +17,7 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-// なんでこれダメなのかからない
+// なんでこれ使ってエラーなるのかわからない
 //val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
 //    from(rootProject.file("src/wasmJsMain/resources"))
 //    into("build/processedResources/wasmJs/main")
