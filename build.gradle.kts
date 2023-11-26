@@ -34,7 +34,7 @@ kotlin {
 
         browser {
             commonWebpackConfig {
-                outputFileName = "main.js"
+                outputFileName = "kota-shiokara.github.io.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
                         add(project.rootDir.path)
