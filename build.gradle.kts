@@ -17,6 +17,16 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+// なんでこれダメなのかからない
+//val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+//    from(rootProject.file("src/wasmJsMain/resources"))
+//    into("build/processedResources/wasmJs/main")
+//}
+//
+//afterEvaluate {
+//    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
+//}
+
 @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
 kotlin {
     wasmJs {
@@ -62,11 +72,3 @@ compose {
     kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=$kotlinVersion")
 }
 
-val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
-    from(rootProject.file("src/wasmJsMain/resources"))
-    into("build/processedResources/wasmJs/main")
-}
-
-afterEvaluate {
-    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
-}

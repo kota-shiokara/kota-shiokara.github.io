@@ -5,6 +5,8 @@ abstract class Log {
     abstract fun i(tag: String = defaultTag(), res: Any)
     abstract fun w(tag: String = defaultTag(), res: Any)
 
+    abstract fun e(tag: String = defaultTag(), error: Throwable)
+
     var tag: String? = null
 
     companion object LogImpl : Log() {
@@ -31,6 +33,10 @@ abstract class Log {
             log(Level.WARN, tag, res)
         }
 
+        override fun e(tag: String, error: Throwable) {
+            log(Level.ERROR, tag, error)
+        }
+
         private fun log(
             level: String,
             tag: String,
@@ -45,6 +51,7 @@ abstract class Log {
             const val DEBUG: String = "[Debug]"
             const val INFO: String = "[Info]"
             const val WARN: String = "[Warn]"
+            const val ERROR: String = "[Error]"
         }
     }
 }
