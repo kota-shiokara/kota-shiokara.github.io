@@ -14,6 +14,9 @@ enum class Texts(
     ),
     TopPageFooterText(
         "© 2023 kota-shiokara | All Rights Reserved",
+    ),
+    AboutMe(
+        "About Me",
     );
 
     override fun toString(): String {

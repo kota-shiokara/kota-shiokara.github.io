@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import utils.ImageLoader
@@ -18,7 +19,8 @@ fun AsyncImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop
+    contentScale: ContentScale = ContentScale.Crop,
+    colorFilter: ColorFilter? = null,
 ) {
     var bitmap: ImageBitmap? by remember { mutableStateOf(null) }
 
@@ -27,7 +29,8 @@ fun AsyncImage(
             bitmap!!,
             contentDescription = contentDescription,
             modifier = modifier,
-            contentScale = contentScale
+            contentScale = contentScale,
+            colorFilter = colorFilter
         )
     }
 
