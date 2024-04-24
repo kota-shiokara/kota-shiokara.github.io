@@ -2,15 +2,44 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>kota-shiokara's portfolio</title>
+<!--        <title>kota-shiokara's portfolio</title>-->
         <link rel="icon" href="https://avatars.githubusercontent.com/u/50353938?s=96&v=4">
         <link rel="apple-touch-icon" href="img/apple-touch-icon-180x180.png" sizes="180x180">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="animation.css"/>
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #F5B1AA;
+                overflow: hidden;
+            }
+        </style>
 
         <script type="application/javascript" src="skiko.js"></script>
         <script type="application/javascript" src="kota-shiokara.github.io.js"></script>
     </head>
     <body>
+        <div class="loading" id="loading">
+            <div class="waiting" id="waiting">
+                <p class="instruction-text">Welcome to kota-shiokara's portfolio!</p>
+                <p class="instruction-text">このページはWebAssemblyの初期化後表示されます。</p>
+                <p class="instruction-text">This page will begin shortly after WebAssembly component has been initialized.</p>
+                <div class="spinner-box">
+                    <div class="pulse-container">
+                        <div class="pulse-bubble pulse-bubble-1"></div>
+                        <div class="pulse-bubble pulse-bubble-2"></div>
+                        <div class="pulse-bubble pulse-bubble-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-wasm-gc" id="no-wasm-gc">
+                <p class="instruction-text">Oops! Failed to load Wasm-GC. Please follow these <a href="https://kotlinlang.org/docs/wasm-get-started.html#troubleshooting" >instructions</a> to enable wasm-gc in your browser, or use the <a href="../js">js</a> site</p>
+            </div>
+        </div>
         <canvas id="ComposeTarget"></canvas>
     </body>
 </html>
