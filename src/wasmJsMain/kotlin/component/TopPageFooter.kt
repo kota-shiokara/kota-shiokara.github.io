@@ -24,7 +24,7 @@ fun TopPageFooter() {
         Text(
             "${Texts.TopPageFooterText}",
             modifier = Modifier.padding(8.dp),
-            color = Color.White
+            color = Color.Black
         )
     }
 }
