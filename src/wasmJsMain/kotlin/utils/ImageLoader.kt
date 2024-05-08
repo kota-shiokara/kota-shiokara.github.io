@@ -29,7 +29,7 @@ class ImageLoader {
             }
         }
 
-        private suspend fun loadImage(url: String): ArrayBuffer {
+        suspend fun loadImage(url: String): ArrayBuffer {
             return suspendCoroutine { continuation ->
                 val req = XMLHttpRequest()
                 req.open("GET", url, true)

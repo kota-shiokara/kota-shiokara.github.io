@@ -13,10 +13,10 @@ class ShiokaraTextStyle {
             val windowWidth = LocalWindowWidth.current
 
             return when (WindowWidthSize.fromDp(windowWidth)) {
-                WindowWidthSize.Compact -> MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold)
+                WindowWidthSize.Compact -> MaterialTheme.typography.h6
                 WindowWidthSize.Medium,
                 WindowWidthSize.Expanded -> {
-                    MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Bold)
+                    MaterialTheme.typography.h3
                 }
             }
         }
@@ -26,10 +26,10 @@ class ShiokaraTextStyle {
             val windowWidth = LocalWindowWidth.current
 
             return when (WindowWidthSize.fromDp(windowWidth)) {
-                WindowWidthSize.Compact -> MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold)
+                WindowWidthSize.Compact -> MaterialTheme.typography.h6
                 WindowWidthSize.Medium,
                 WindowWidthSize.Expanded -> {
-                    MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Bold)
+                    MaterialTheme.typography.h3
                 }
             }
         }
@@ -39,10 +39,10 @@ class ShiokaraTextStyle {
             val windowWidth = LocalWindowWidth.current
 
             return when (WindowWidthSize.fromDp(windowWidth)) {
-                WindowWidthSize.Compact -> MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
+                WindowWidthSize.Compact -> MaterialTheme.typography.subtitle1
                 WindowWidthSize.Medium,
                 WindowWidthSize.Expanded -> {
-                    MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold)
+                    MaterialTheme.typography.h6
                 }
             }
         }
