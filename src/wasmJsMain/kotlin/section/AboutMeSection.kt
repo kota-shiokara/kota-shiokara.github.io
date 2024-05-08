@@ -7,50 +7,95 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import component.VerticalDivider
+import utils.ShiokaraTextStyle
 import utils.Texts
-import utils.WindowWidthMedium
-import utils.WindowWidthSize
 import utils.primaryColor
 
 @Composable
 fun AboutMeSection(
-    modifier: Modifier = Modifier,
-    maxWidth: Dp = WindowWidthMedium
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
     ) {
         SectionTitle(
-            title = "${Texts.AboutMeSectionTitleLabel}",
-            maxWidth = maxWidth
+            title = "${Texts.AboutMeSectionTitleLabel}"
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Column {
-            Row {
-
-            }
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            MyNameRow()
+            InformationRow()
         }
+    }
+}
+
+@Composable
+fun InformationRow(
+    key: String = "-",
+    value: String = "-",
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+    ) {
+        Spacer(modifier = Modifier.width(32.dp))
+        Text(
+            text = key,
+            color = Color.Black,
+            style = ShiokaraTextStyle.contentStyle()
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = ":",
+            color = Color.Black,
+            style = ShiokaraTextStyle.contentStyle()
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = value,
+            color = Color.Black,
+            style = ShiokaraTextStyle.contentStyle()
+        )
+    }
+}
+
+@Composable
+fun MyNameRow(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+    ) {
+        Text(
+            text = "田島 鼓太郎",
+            color = Color.Black,
+            style = ShiokaraTextStyle.contentStyle()
+        )
+        Text(
+            text = "Kotaro Tajima",
+            color = Color.Black,
+            style = ShiokaraTextStyle.contentStyle()
+        )
     }
 }
 
 @Composable
 fun SectionTitle(
     title: String,
-    modifier: Modifier = Modifier,
-    maxWidth: Dp = WindowWidthMedium
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -66,13 +111,7 @@ fun SectionTitle(
         Text(
             text = title,
             color = Color.Black,
-            style = when (WindowWidthSize.fromDp(maxWidth)) {
-                WindowWidthSize.Compact -> MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
-                WindowWidthSize.Medium,
-                WindowWidthSize.Expanded -> {
-                    MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Bold)
-                }
-            }
+            style = ShiokaraTextStyle.sectionTitleStyle()
         )
     }
 }

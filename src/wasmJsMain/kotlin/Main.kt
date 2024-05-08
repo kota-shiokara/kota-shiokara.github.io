@@ -3,9 +3,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.CanvasBasedWindow
 import component.TopPageFooter
@@ -13,8 +20,10 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.configureWebResources
 import org.jetbrains.compose.resources.urlResource
 import section.AboutMeSection
-import section.TopSection
 import utils.Texts
+
+val LocalWindowWidth = compositionLocalOf<Dp> { error("No WindowWidth provided") }
+val LocalWindowHeight = compositionLocalOf<Dp> { error("No WindowHeight provided") }
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalResourceApi::class)
 fun main() {
@@ -29,26 +38,37 @@ fun main() {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+            var windowWidth by remember { mutableStateOf(maxWidth) }
+            var windowHeight by remember { mutableStateOf(maxHeight) }
+
+            LaunchedEffect(maxWidth) {
+                windowWidth = maxWidth
+            }
+
+            LaunchedEffect(maxHeight) {
+                windowHeight = maxHeight
+            }
+
+            CompositionLocalProvider(
+                LocalWindowWidth provides windowWidth,
+                LocalWindowHeight provides windowHeight
             ) {
-                item {
-                    TopSection(
-                        maxWidth = maxWidth,
-                        maxHeight = maxHeight
-                    )
-                }
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    item {
+//                        TopSection()
+                    }
 
-                item {
-                    Spacer(modifier = Modifier.size(16.dp))
+                    item {
+                        Spacer(modifier = Modifier.size(16.dp))
 
-                    AboutMeSection(
-                        maxWidth = maxWidth
-                    )
-                }
+                        AboutMeSection()
+                    }
 
-                item {
-                    TopPageFooter()
+                    item {
+                        TopPageFooter()
+                    }
                 }
             }
         }
