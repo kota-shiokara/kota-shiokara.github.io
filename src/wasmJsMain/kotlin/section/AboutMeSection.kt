@@ -32,7 +32,7 @@ fun AboutMeSection(
             .fillMaxSize()
     ) {
         SectionTitle(
-            title = "${Texts.AboutMe}",
+            title = "${Texts.AboutMeSectionTitleLabel}",
             maxWidth = maxWidth
         )
 

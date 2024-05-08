@@ -9,13 +9,13 @@ enum class Texts(
     AppName(
         "kota-shiokara's portfolio"
     ),
-    WelcomeToPortfolio(
+    WelcomeToPortfolioLabel(
         "Welcome to kota-shiokara's portfolio!"
     ),
-    TopPageFooterText(
+    FooterCopyLightLabel(
         "© 2023 kota-shiokara | All Rights Reserved",
     ),
-    AboutMe(
+    AboutMeSectionTitleLabel(
         "About Me",
     );
 

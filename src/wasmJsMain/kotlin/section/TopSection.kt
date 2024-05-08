@@ -62,7 +62,7 @@ fun TopSection(
             Spacer(modifier = Modifier.size(16.dp))
 
             Text(
-                text = "${Texts.WelcomeToPortfolio}",
+                text = "${Texts.WelcomeToPortfolioLabel}",
                 color = Color.White,
                 style = when (WindowWidthSize.fromDp(maxWidth)) {
                     WindowWidthSize.Compact -> MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold)

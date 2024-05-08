@@ -22,7 +22,7 @@ fun TopPageFooter() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            "${Texts.TopPageFooterText}",
+            "${Texts.FooterCopyLightLabel}",
             modifier = Modifier.padding(8.dp),
             color = Color.Black
         )
