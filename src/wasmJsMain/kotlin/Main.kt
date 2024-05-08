@@ -20,6 +20,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.configureWebResources
 import org.jetbrains.compose.resources.urlResource
 import section.AboutMeSection
+import utils.Resource
 import utils.Texts
 
 val LocalWindowWidth = compositionLocalOf<Dp> { error("No WindowWidth provided") }
@@ -32,7 +33,7 @@ fun main() {
     }
 
     CanvasBasedWindow(
-        title = "${Texts.AppName}",
+        title = Resource.Strings.APP_NAME,
         canvasElementId = "ComposeTarget"
     ) {
         BoxWithConstraints(

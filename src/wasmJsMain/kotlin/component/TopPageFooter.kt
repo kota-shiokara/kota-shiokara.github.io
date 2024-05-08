@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import utils.Resource
 import utils.Texts
 
 @Composable
@@ -22,7 +23,7 @@ fun TopPageFooter() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            "${Texts.FooterCopyLightLabel}",
+            text = Resource.Strings.COPYRIGHT,
             modifier = Modifier.padding(8.dp),
             color = Color.Black
         )

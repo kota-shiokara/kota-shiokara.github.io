@@ -6,14 +6,8 @@ enum class Texts(
     private val ja: String,
     private val en: String = ja
 ) {
-    AppName(
-        "kota-shiokara's portfolio"
-    ),
     WelcomeToPortfolioLabel(
         "Welcome to kota-shiokara's portfolio!"
-    ),
-    FooterCopyLightLabel(
-        "© 2023 kota-shiokara | All Rights Reserved",
     ),
     AboutMeSectionTitleLabel(
         "About Me",
