@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -53,17 +55,11 @@ fun InformationRow(
     ) {
         Spacer(modifier = Modifier.width(32.dp))
         Text(
-            text = key,
+            text = "$key:",
             color = Color.Black,
             style = ShiokaraTextStyle.contentStyle()
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = ":",
-            color = Color.Black,
-            style = ShiokaraTextStyle.contentStyle()
-        )
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.weight(1f))
         Text(
             text = value,
             color = Color.Black,
@@ -76,19 +72,26 @@ fun InformationRow(
 fun MyNameRow(
     modifier: Modifier = Modifier
 ) {
-    Row(
+    Column(
         modifier = modifier
     ) {
-        Text(
-            text = "田島 鼓太郎",
-            color = Color.Black,
-            style = ShiokaraTextStyle.contentStyle()
-        )
-        Text(
-            text = "Kotaro Tajima",
-            color = Color.Black,
-            style = ShiokaraTextStyle.contentStyle()
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Text(
+                text = "田島 鼓太郎",
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentBigStyle()
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = "Kotaro Tajima",
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentStyle()
+            )
+        }
+        Divider(color = primaryColor, thickness = 2.dp)
     }
 }
 
