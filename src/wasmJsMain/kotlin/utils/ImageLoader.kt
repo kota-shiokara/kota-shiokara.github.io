@@ -13,15 +13,15 @@ import kotlin.coroutines.suspendCoroutine
 import kotlin.wasm.unsafe.UnsafeWasmMemoryApi
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
 
-class ImageLoader {
-    companion object {
+actual class ImageLoader {
+    actual companion object {
         private val imagesCache = mutableMapOf<String, ImageBitmap>()
 
         private fun isImageCached(url: String): Boolean {
             return imagesCache.contains(url)
         }
 
-        fun getImageBitmapOrNull(url: String): ImageBitmap? {
+        actual fun getImageBitmapOrNull(url: String): ImageBitmap? {
             return if (isImageCached(url)) {
                 imagesCache[url]
             } else {
@@ -29,7 +29,7 @@ class ImageLoader {
             }
         }
 
-        suspend fun loadImage(url: String): ArrayBuffer {
+        private suspend fun loadImage(url: String): ArrayBuffer {
             return suspendCoroutine { continuation ->
                 val req = XMLHttpRequest()
                 req.open("GET", url, true)
@@ -47,7 +47,7 @@ class ImageLoader {
             }
         }
 
-        suspend fun fetchImageBitmap(url: String): ImageBitmap {
+        actual suspend fun fetchImageBitmap(url: String): ImageBitmap {
             if (isImageCached(url)) {
                 return imagesCache[url]!!
             }

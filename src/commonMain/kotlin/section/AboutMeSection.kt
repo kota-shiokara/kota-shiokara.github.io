@@ -9,17 +9,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import component.VerticalDivider
 import utils.ShiokaraTextStyle
 import utils.Texts
-import utils.primaryColor
 
 @Composable
 fun AboutMeSection(
@@ -91,7 +91,7 @@ fun MyNameRow(
                 style = ShiokaraTextStyle.contentStyle()
             )
         }
-        Divider(color = primaryColor, thickness = 2.dp)
+        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.primary)
     }
 }
 
@@ -107,7 +107,7 @@ fun SectionTitle(
     ) {
         Spacer(modifier = Modifier.width(32.dp))
         VerticalDivider(
-            color = primaryColor,
+            color = MaterialTheme.colorScheme.primary,
             thickness = 8.dp
         )
         Spacer(modifier = Modifier.width(8.dp))

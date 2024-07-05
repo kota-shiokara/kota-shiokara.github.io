@@ -1,20 +1,12 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 group = "jp.ikanoshiokara"
 version = "2.1.0"
 
-repositories {
-    google()
-    mavenCentral()
-    mavenLocal()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
-}
-
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 // なんでこれ使ってエラーなるのかわからない
@@ -27,49 +19,37 @@ plugins {
 //    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
 //}
 
-@OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
 kotlin {
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "kota-shiokara.github.io"
-
         browser {
             commonWebpackConfig {
                 outputFileName = "kota-shiokara.github.io.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        add(project.rootDir.path)
-                    }
-                }
             }
         }
         binaries.executable()
     }
 
     sourceSets {
-        val wasmJsMain by getting {
+         wasmJsMain {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.ui)
                 implementation(compose.animation)
+                implementation(compose.components.resources)
+            }
+        }
 
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        commonMain {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
                 implementation(compose.components.resources)
             }
         }
     }
 }
-
-compose.experimental {
-    web.application {}
-}
-
-compose {
-    val kotlinVersion = rootProject.extra["kotlin.version"] as String
-    val composeCompilerVersion = rootProject.extra["compose.compiler.version"] as String
-
-    kotlinCompilerPlugin.set(composeCompilerVersion)
-    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=$kotlinVersion")
-}
-

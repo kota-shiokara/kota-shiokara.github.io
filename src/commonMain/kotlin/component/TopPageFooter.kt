@@ -10,8 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import utils.Resource
-import utils.Texts
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.top_page_footer_copyright
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TopPageFooter() {
@@ -23,7 +24,7 @@ fun TopPageFooter() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = Resource.Strings.COPYRIGHT,
+            text = stringResource(Res.string.top_page_footer_copyright),
             modifier = Modifier.padding(8.dp),
             color = Color.Black
         )

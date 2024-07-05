@@ -1,7 +1,5 @@
 package section
 
-import LocalWindowHeight
-import LocalWindowWidth
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -19,6 +17,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,22 +27,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import component.AvatarImage
 import component.LinkIconRow
-import utils.Resource
 import utils.ShiokaraTextStyle
 import utils.Texts
-import utils.primaryColor
 
 @Composable
 fun TopSection(
     modifier: Modifier = Modifier
 ) {
-    val windowWidth = LocalWindowWidth.current
-    val windowHeight = LocalWindowHeight.current
-
     Column(
         modifier = modifier
-            .size(windowWidth, windowHeight)
-            .background(primaryColor)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -53,7 +46,7 @@ fun TopSection(
             verticalArrangement = Arrangement.Center,
         ) {
             AvatarImage(
-                imageUrl = Resource.Strings.AVATAR_IMAGE_URL,
+                imageUrl = "https://avatars.githubusercontent.com/u/50353938?s=96&v=4",
                 contentDescription = "kota-shiokara",
                 modifier = Modifier
                     .size(150.dp)
