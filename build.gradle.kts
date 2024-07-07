@@ -9,16 +9,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
-// なんでこれ使ってエラーなるのかわからない
-//val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
-//    from(rootProject.file("src/wasmJsMain/resources"))
-//    into("build/processedResources/wasmJs/main")
-//}
-//
-//afterEvaluate {
-//    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
-//}
-
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -38,7 +28,20 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.resources)
+
+                // Preview
+                implementation(compose.components.uiToolingPreview)
             }
         }
     }
 }
+
+// なんでこれ使ってエラーなるのかわからない
+//val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+//    from(rootProject.file("src/wasmJsMain/resources"))
+//    into("build/processedResources/wasmJs/main")
+//}
+//
+//afterEvaluate {
+//    project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
+//}

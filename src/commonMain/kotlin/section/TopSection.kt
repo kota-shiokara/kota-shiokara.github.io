@@ -31,6 +31,7 @@ import component.LinkIconRow
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_top_welcome
 import org.jetbrains.compose.resources.stringResource
+
 import utils.ShiokaraTextStyle
 
 @Composable
