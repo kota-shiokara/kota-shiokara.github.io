@@ -31,17 +31,6 @@ kotlin {
     }
 
     sourceSets {
-         wasmJsMain {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.ui)
-                implementation(compose.animation)
-                implementation(compose.components.resources)
-            }
-        }
-
         commonMain {
             dependencies {
                 implementation(compose.runtime)

@@ -17,9 +17,9 @@ import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.instagram_lo
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.qiita
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.x_logo
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.zenn_logo
-import kotlinx.browser.window
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import utils.openWindow
 
 private val defaultLinkIconList: List<LinkIconData> = listOf(
     LinkIconData.RemoteLinkIconData(
@@ -86,9 +86,7 @@ fun RemoteLinkIcon(
 ) {
     val iconModifier = modifier
         .clickable {
-            window.open(
-                link
-            )
+            openWindow(link)
         }
         .background(
             color = backgroundColor ?: Color.Transparent,
@@ -112,9 +110,7 @@ fun LocalLinkIcon(
 ) {
     val iconModifier = modifier
         .clickable {
-            window.open(
-                link
-            )
+            openWindow(link)
         }
         .background(
             color = backgroundColor ?: Color.Transparent,

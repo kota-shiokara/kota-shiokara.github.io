@@ -10,11 +10,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.MaterialTheme
@@ -27,8 +28,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import component.AvatarImage
 import component.LinkIconRow
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_top_welcome
+import org.jetbrains.compose.resources.stringResource
 import utils.ShiokaraTextStyle
-import utils.Texts
 
 @Composable
 fun TopSection(
@@ -36,12 +39,12 @@ fun TopSection(
 ) {
     Column(
         modifier = modifier
+            .fillMaxWidth()
             .background(MaterialTheme.colorScheme.primary)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -56,7 +59,7 @@ fun TopSection(
             Spacer(modifier = Modifier.size(16.dp))
 
             Text(
-                text = "${Texts.WelcomeToPortfolioLabel}",
+                text = stringResource(Res.string.section_top_welcome),
                 color = Color.White,
                 style = ShiokaraTextStyle.titleStyle()
             )

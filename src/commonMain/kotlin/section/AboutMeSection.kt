@@ -18,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_about_me_title
+import org.jetbrains.compose.resources.stringResource
 import utils.ShiokaraTextStyle
-import utils.Texts
 
 @Composable
 fun AboutMeSection(
@@ -30,7 +32,7 @@ fun AboutMeSection(
             .fillMaxSize()
     ) {
         SectionTitle(
-            title = "${Texts.AboutMeSectionTitleLabel}"
+            title = stringResource(Res.string.section_about_me_title)
         )
 
         Spacer(modifier = Modifier.height(16.dp))

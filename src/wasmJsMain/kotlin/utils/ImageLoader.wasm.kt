@@ -2,34 +2,39 @@ package utils
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
-import org.jetbrains.skia.ExternalSymbolName
-import org.jetbrains.skia.impl.NativePointer
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Int8Array
 import org.w3c.xhr.XMLHttpRequest
+import utils.ImageLoader.Companion.imagesCache
+import utils.ImageLoader.Companion.isImageCached
+import utils.ImageLoader.Companion.loadImage
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 import kotlin.wasm.unsafe.UnsafeWasmMemoryApi
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
 
-actual class ImageLoader {
-    actual companion object {
-        private val imagesCache = mutableMapOf<String, ImageBitmap>()
+actual suspend fun fetchImageBitmap(url: String): ImageBitmap {
+    if (isImageCached(url)) {
+        return imagesCache[url]!!
+    }
 
-        private fun isImageCached(url: String): Boolean {
+    val arrayBuffer = loadImage(url)
+    val skiaImg = org.jetbrains.skia.Image.makeFromEncoded(arrayBuffer.toByteArray())
+
+    imagesCache[url] = skiaImg.toComposeImageBitmap()
+    return imagesCache[url]!!
+}
+
+internal class ImageLoader {
+     companion object {
+        val imagesCache = mutableMapOf<String, ImageBitmap>()
+
+        fun isImageCached(url: String): Boolean {
             return imagesCache.contains(url)
         }
 
-        actual fun getImageBitmapOrNull(url: String): ImageBitmap? {
-            return if (isImageCached(url)) {
-                imagesCache[url]
-            } else {
-                null
-            }
-        }
-
-        private suspend fun loadImage(url: String): ArrayBuffer {
+        suspend fun loadImage(url: String): ArrayBuffer {
             return suspendCoroutine { continuation ->
                 val req = XMLHttpRequest()
                 req.open("GET", url, true)
@@ -46,24 +51,12 @@ actual class ImageLoader {
                 req.send("")
             }
         }
-
-        actual suspend fun fetchImageBitmap(url: String): ImageBitmap {
-            if (isImageCached(url)) {
-                return imagesCache[url]!!
-            }
-
-            val arrayBuffer = loadImage(url)
-            val skiaImg = org.jetbrains.skia.Image.makeFromEncoded(arrayBuffer.toByteArray())
-
-            imagesCache[url] = skiaImg.toComposeImageBitmap()
-            return imagesCache[url]!!
-        }
     }
 
     private class MissingResourceException(url: String): Exception("GET $url failed")
 }
 
-fun ArrayBuffer.toByteArray(): ByteArray {
+internal fun ArrayBuffer.toByteArray(): ByteArray {
     val source = Int8Array(this, 0, byteLength)
     return jsInt8ArrayToKotlinByteArray(source)
 }
@@ -88,11 +81,3 @@ internal fun jsInt8ArrayToKotlinByteArray(x: Int8Array): ByteArray {
         ByteArray(size) { i -> (memBuffer + i).loadByte() }
     }
 }
-
-@ExternalSymbolName("_malloc")
-@kotlin.wasm.WasmImport("skia", "malloc")
-private external fun _malloc(size: Int): NativePointer
-
-@ExternalSymbolName("_free")
-@kotlin.wasm.WasmImport("skia", "free")
-private external fun _free(ptr: NativePointer)

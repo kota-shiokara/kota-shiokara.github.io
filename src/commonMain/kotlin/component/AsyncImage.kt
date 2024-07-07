@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import utils.ImageLoader
 import utils.Log
+import utils.fetchImageBitmap
 
 @Composable
 fun AsyncImage(
@@ -35,7 +35,7 @@ fun AsyncImage(
     }
 
     LaunchedEffect(imageUrl) {
-        runCatching { ImageLoader.fetchImageBitmap(imageUrl) }
+        runCatching { fetchImageBitmap(imageUrl) }
             .onSuccess {
                 bitmap = it
             }
