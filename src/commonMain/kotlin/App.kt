@@ -1,18 +1,17 @@
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import component.TopPageFooter
 import section.AboutMeSection
@@ -23,24 +22,42 @@ import theme.primaryColor
 @Composable
 fun App() {
     ShiokaraTheme {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            item {
-                TopSection()
-            }
+        BoxWithConstraints {
+            val width = maxWidth
+            val height = maxHeight
 
-            item {
-                Spacer(modifier = Modifier.size(16.dp))
+            CompositionLocalProvider(
+                LocalDisplayWidth provides width,
+                LocalDisplayHeight provides height
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    item {
+                        TopSection()
+                    }
 
-                AboutMeSection()
-            }
+                    item {
+                        Spacer(modifier = Modifier.size(16.dp))
 
-            item {
-                TopPageFooter()
+                        AboutMeSection()
+                    }
+
+                    item {
+                        TopPageFooter()
+                    }
+                }
             }
         }
     }
+}
+
+val LocalDisplayWidth = staticCompositionLocalOf<Dp> {
+    error("No Display Width")
+}
+
+val LocalDisplayHeight = staticCompositionLocalOf<Dp> {
+    error("No Display Height")
 }
 
 @Composable

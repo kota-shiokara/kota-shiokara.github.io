@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_about_me_title
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+import theme.ShiokaraTheme
 import utils.ShiokaraTextStyle
 
 @Composable
@@ -117,6 +120,16 @@ fun SectionTitle(
             text = title,
             color = Color.Black,
             style = ShiokaraTextStyle.sectionTitleStyle()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SectionTitlePreview() {
+    ShiokaraTheme {
+        SectionTitle(
+            title = ""
         )
     }
 }
