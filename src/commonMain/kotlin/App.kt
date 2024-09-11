@@ -11,7 +11,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import component.TopPageFooter
 import section.AboutMeSection
+import section.BlogSection
 import section.TopSection
+import section.WorkSection
 import theme.ShiokaraTheme
 import theme.primaryColor
 
@@ -20,6 +22,7 @@ fun App() {
     ShiokaraTheme {
         BoxWithConstraints {
             val height = maxHeight
+            val sectionSpan = 32.dp
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -29,8 +32,18 @@ fun App() {
                 }
 
                 item {
-                    Spacer(modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     AboutMeSection()
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(sectionSpan))
+                    WorkSection()
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(sectionSpan))
+                    BlogSection()
                 }
 
                 item {

@@ -30,16 +30,53 @@ class ShiokaraTextStyle {
             windowWidthSizeClass: WindowWidthSizeClass,
         ): TextStyle = when(windowWidthSizeClass) {
             WindowWidthSizeClass.Compact -> {
+                MaterialTheme.typography.headlineMedium
+            }
+            else -> {
+                MaterialTheme.typography.displaySmall
+            }
+        }.copy(
+            fontWeight = FontWeight.Bold
+        )
+
+        @Composable
+        fun contentLargeStyle(
+            windowWidthSizeClass: WindowWidthSizeClass,
+        ): TextStyle = when(windowWidthSizeClass) {
+            WindowWidthSizeClass.Compact -> {
                 MaterialTheme.typography.headlineSmall
             }
             else -> {
-                MaterialTheme.typography.headlineLarge
+                MaterialTheme.typography.headlineMedium
             }
         }
 
         @Composable
-        fun contentBigStyle(): TextStyle = MaterialTheme.typography.bodyLarge
+        fun contentLargeBoldStyle(
+            windowWidthSizeClass: WindowWidthSizeClass,
+        ): TextStyle = contentLargeStyle(windowWidthSizeClass)
+            .copy(
+                fontWeight = FontWeight.Bold
+            )
+
         @Composable
-        fun contentStyle(): TextStyle = MaterialTheme.typography.bodySmall
+        fun contentStyle(
+            windowWidthSizeClass: WindowWidthSizeClass,
+        ): TextStyle = when(windowWidthSizeClass) {
+            WindowWidthSizeClass.Compact -> {
+                MaterialTheme.typography.titleMedium
+            }
+            else -> {
+                MaterialTheme.typography.headlineSmall
+            }
+        }
+
+        @Composable
+        fun contentBoldStyle(
+            windowWidthSizeClass: WindowWidthSizeClass,
+        ): TextStyle = contentStyle(windowWidthSizeClass)
+            .copy(
+                fontWeight = FontWeight.Bold
+            )
     }
 }

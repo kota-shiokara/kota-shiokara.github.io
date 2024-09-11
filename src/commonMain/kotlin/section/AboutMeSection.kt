@@ -1,140 +1,192 @@
 package section
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import component.SectionTitle
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.my_name_english
+import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.my_name_japanese
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_about_me_title
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import theme.ShiokaraTheme
 import utils.ShiokaraTextStyle
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AboutMeSection(
     modifier: Modifier = Modifier
 ) {
+    val windowSizeClass = calculateWindowSizeClass()
+    val horizontalPadding = when (windowSizeClass.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> {
+            16.dp
+        }
+        else -> {
+            24.dp
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(horizontal = horizontalPadding)
     ) {
         SectionTitle(
             title = stringResource(Res.string.section_about_me_title)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Column(
-            modifier = Modifier.padding(16.dp)
+        MyNameRow()
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
-            MyNameRow()
-            InformationRow()
+            Column(
+                modifier =
+                    Modifier
+                        .padding(8.dp)
+                        .border(
+                            width = 4.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(12.dp)
+            ) {
+                InformationRow("出身", "北海道札幌市")
+                InformationRow("好きなもの", listOf("カービィ", "木目調の内装", "クリエイティブコーディング"))
+                InformationRow("好きな言語", listOf("Kotlin", "Hot Soup Processor"))
+                InformationRow("座右の銘", "明日は明日の風が吹く")
+                InformationRow("一言", "学マスたのしい")
+            }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun InformationRow(
     key: String = "-",
     value: String = "-",
     modifier: Modifier = Modifier,
 ) {
-    Row(
+    val windowSizeClass = calculateWindowSizeClass()
+
+    InformationRow(
+        key = {
+            Text(
+                text = "$key:",
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+            )
+        },
+        value = {
+            Text(
+                text = value,
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+            )
+        },
         modifier = modifier
-    ) {
-        Spacer(modifier = Modifier.width(32.dp))
-        Text(
-            text = "$key:",
-            color = Color.Black,
-            style = ShiokaraTextStyle.contentStyle()
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = value,
-            color = Color.Black,
-            style = ShiokaraTextStyle.contentStyle()
-        )
-    }
+    )
+}
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@Composable
+fun InformationRow(
+    key: String = "-",
+    values: List<String> = listOf("-"),
+    modifier: Modifier = Modifier,
+) {
+    val windowSizeClass = calculateWindowSizeClass()
+
+    InformationRow(
+        key = {
+            Text(
+                text = "$key:",
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+            )
+        },
+        value = {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> {
+                    Column {
+                        values.forEach {
+                            Text(
+                                text = it,
+                                color = Color.Black,
+                                style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+                            )
+                        }
+                    }
+                }
+                else -> {
+                    Text(
+                        text = values.joinToString(", "),
+                        color = Color.Black,
+                        style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+                    )
+                }
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
-fun MyNameRow(
-    modifier: Modifier = Modifier
+fun InformationRow(
+    key: @Composable () -> Unit = {},
+    value: @Composable () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.Bottom
-        ) {
-            Text(
-                text = "田島 鼓太郎",
-                color = Color.Black,
-                style = ShiokaraTextStyle.contentBigStyle()
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = "Kotaro Tajima",
-                color = Color.Black,
-                style = ShiokaraTextStyle.contentStyle()
-            )
+        Row {
+            key()
+            Spacer(modifier = Modifier.width(8.dp))
+            value()
         }
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.primary)
+        Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun SectionTitle(
-    title: String,
+fun MyNameRow(
     modifier: Modifier = Modifier
 ) {
     val windowSizeClass = calculateWindowSizeClass()
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-    ) {
-        Spacer(modifier = Modifier.width(32.dp))
-        VerticalDivider(
-            color = MaterialTheme.colorScheme.primary,
-            thickness = 8.dp
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = title,
-            color = Color.Black,
-            style = ShiokaraTextStyle.sectionTitleStyle(windowSizeClass.widthSizeClass)
-        )
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(Res.string.my_name_japanese),
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentLargeBoldStyle(windowSizeClass.widthSizeClass)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = stringResource(Res.string.my_name_english),
+                color = Color.Black,
+                style = ShiokaraTextStyle.contentStyle(windowSizeClass.widthSizeClass)
+            )
+        }
     }
 }
 
-@Preview
-@Composable
-private fun SectionTitlePreview() {
-    ShiokaraTheme {
-        SectionTitle(
-            title = ""
-        )
-    }
-}
