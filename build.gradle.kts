@@ -31,6 +31,7 @@ kotlin {
 
                 // Preview
                 implementation(compose.components.uiToolingPreview)
+                implementation(libs.composeMaterialWindowSize)
             }
         }
     }

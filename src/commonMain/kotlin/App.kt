@@ -4,14 +4,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocal
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import component.TopPageFooter
 import section.AboutMeSection
@@ -23,41 +19,26 @@ import theme.primaryColor
 fun App() {
     ShiokaraTheme {
         BoxWithConstraints {
-            val width = maxWidth
             val height = maxHeight
 
-            CompositionLocalProvider(
-                LocalDisplayWidth provides width,
-                LocalDisplayHeight provides height
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
             ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    item {
-                        TopSection()
-                    }
+                item {
+                    TopSection(height = height)
+                }
 
-                    item {
-                        Spacer(modifier = Modifier.size(16.dp))
+                item {
+                    Spacer(modifier = Modifier.size(16.dp))
+                    AboutMeSection()
+                }
 
-                        AboutMeSection()
-                    }
-
-                    item {
-                        TopPageFooter()
-                    }
+                item {
+                    TopPageFooter()
                 }
             }
         }
     }
-}
-
-val LocalDisplayWidth = staticCompositionLocalOf<Dp> {
-    error("No Display Width")
-}
-
-val LocalDisplayHeight = staticCompositionLocalOf<Dp> {
-    error("No Display Height")
 }
 
 @Composable

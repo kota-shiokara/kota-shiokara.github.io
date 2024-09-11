@@ -1,6 +1,5 @@
 package section
 
-import LocalDisplayHeight
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -15,31 +14,36 @@ import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import component.AvatarImage
 import component.LinkIconRow
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.Res
 import jp.ikanoshiokara.kota_shiokara.github.io.generated.resources.section_top_welcome
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import theme.ShiokaraTheme
 
 import utils.ShiokaraTextStyle
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun TopSection(
-    modifier: Modifier = Modifier
+    height: Dp = 0.dp,
+    modifier: Modifier = Modifier.fillMaxWidth().height(height),
 ) {
-    val height = LocalDisplayHeight.current
+    val windowSizeClass = calculateWindowSizeClass()
 
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .height(height)
             .background(MaterialTheme.colorScheme.primary)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,7 +67,7 @@ fun TopSection(
             Text(
                 text = stringResource(Res.string.section_top_welcome),
                 color = Color.White,
-                style = ShiokaraTextStyle.titleStyle()
+                style = ShiokaraTextStyle.titleStyle(windowSizeClass.widthSizeClass)
             )
 
             Spacer(modifier = Modifier.size(16.dp))
@@ -98,4 +102,12 @@ fun DownNavigator(
         modifier = modifier.size(iconSize),
         tint = firstArrowTint
     )
+}
+
+@Preview
+@Composable
+fun TopSectionPreview() {
+    ShiokaraTheme {
+        TopSection()
+    }
 }

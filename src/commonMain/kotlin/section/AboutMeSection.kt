@@ -13,6 +13,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -100,11 +102,14 @@ fun MyNameRow(
     }
 }
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun SectionTitle(
     title: String,
     modifier: Modifier = Modifier
 ) {
+    val windowSizeClass = calculateWindowSizeClass()
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -119,7 +124,7 @@ fun SectionTitle(
         Text(
             text = title,
             color = Color.Black,
-            style = ShiokaraTextStyle.sectionTitleStyle()
+            style = ShiokaraTextStyle.sectionTitleStyle(windowSizeClass.widthSizeClass)
         )
     }
 }
