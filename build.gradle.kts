@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 group = "jp.ikanoshiokara"
-version = "2.1.0"
+version = "2.2.0"
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
