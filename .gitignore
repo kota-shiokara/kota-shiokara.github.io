@@ -154,3 +154,5 @@ kotlin-js-store/*
 
 # gradle-wrapper
 !gradle/wrapper/gradle-wrapper.jar
+
+.kotlin

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">kota-shiokara</string>
+    <string name="section_top_welcome">Welcome to kota-shiokara's portfolio!</string>
+    <string name="section_about_me_title">About Me</string>
+    <string name="my_name_japanese">田島 鼓太郎</string>
+    <string name="my_name_english">TAJIMA Kotaro</string>
+    <string name="section_footer_copyright">© 2023 kota-shiokara | All Rights Reserved</string>
+</resources>
